@@ -1,4 +1,4 @@
-package com.example;
+package com.example.unit;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.entity.dto.AccountPrivacy;
@@ -18,12 +18,11 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
-@DisplayName("Account Privacy Service Tests")
+@DisplayName("AccountPrivacyServiceImpl - 账户隐私服务测试")
 class AccountPrivacyServiceImplTest {
 
     @InjectMocks
@@ -44,29 +43,29 @@ class AccountPrivacyServiceImplTest {
     }
 
     @Test
-    @DisplayName("Save Privacy - Existing Privacy")
+    @DisplayName("保存隐私设置 - 已存在的隐私设置")
     void testSavePrivacy_ExistingPrivacy() {
         when(accountPrivacyMapper.selectById(1)).thenReturn(accountPrivacy);
 
         accountPrivacyService.savePrivacy(1, privacySaveVO);
 
         verify(accountPrivacyMapper).selectById(1);
-        verify(accountPrivacyMapper).updateById(any(AccountPrivacy.class));
+        verify(accountPrivacyMapper,times(1)).insertOrUpdate(any(AccountPrivacy.class));
     }
 
     @Test
-    @DisplayName("Save Privacy - New Privacy")
+    @DisplayName("保存隐私设置 - 新的隐私设置")
     void testSavePrivacy_NewPrivacy() {
         when(accountPrivacyMapper.selectById(1)).thenReturn(null);
 
         accountPrivacyService.savePrivacy(1, privacySaveVO);
 
         verify(accountPrivacyMapper).selectById(1);
-        verify(accountPrivacyMapper).insert(any(AccountPrivacy.class));
+        verify(accountPrivacyMapper,times(1)).insertOrUpdate(any(AccountPrivacy.class));
     }
 
     @Test
-    @DisplayName("Get Account Privacy - Existing Privacy")
+    @DisplayName("获取账户隐私设置 - 已存在的隐私设置")
     void testAccountPrivacy_ExistingPrivacy() {
         when(accountPrivacyMapper.selectById(1)).thenReturn(accountPrivacy);
 
@@ -77,7 +76,7 @@ class AccountPrivacyServiceImplTest {
     }
 
     @Test
-    @DisplayName("Get Account Privacy - New Privacy")
+    @DisplayName("获取账户隐私设置 - 新的隐私设置")
     void testAccountPrivacy_NewPrivacy() {
         when(accountPrivacyMapper.selectById(1)).thenReturn(null);
 

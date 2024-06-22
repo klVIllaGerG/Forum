@@ -1,4 +1,4 @@
-package com.example;
+package com.example.unit;
 
 import com.example.entity.dto.Account;
 import com.example.entity.dto.AccountDetails;
@@ -26,6 +26,7 @@ import static org.mockito.Mockito.*;
 
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
+@DisplayName("AccountDetailsServiceImpl - 账户详情服务测试")
 class AccountDetailsServiceImplTest {
 
     @InjectMocks
@@ -56,7 +57,7 @@ class AccountDetailsServiceImplTest {
     }
 
     @Test
-    @DisplayName("Find Account Details By ID")
+    @DisplayName("通过ID查找账户详情")
     void testFindAccountDetailsById() {
         when(accountDetailsMapper.selectById(1)).thenReturn(accountDetails);
 
@@ -67,7 +68,7 @@ class AccountDetailsServiceImplTest {
     }
 
     @Test
-    @DisplayName("Save Account Details - Success")
+    @DisplayName("保存账户详情 - 成功")
     void testSaveAccountDetails_Success() {
         UpdateChainWrapper<Account> updateWrapper = mock(UpdateChainWrapper.class);
 
@@ -83,13 +84,15 @@ class AccountDetailsServiceImplTest {
         boolean result = accountDetailsService.saveAccountDetails(1, detailsSaveVO);
 
         assertTrue(result);
-        verify(accountService.update(), times(1)).eq("id", 1).set("username", detailsSaveVO.getUsername()).update();
-        verify(accountDetailsMapper, times(1)).insert(any(AccountDetails.class));
-        verify(accountDetailsMapper, times(1)).updateById(any(AccountDetails.class));
+        verify(accountService.update(), times(1)).eq("id", 1);
+        verify(accountService.update(), times(1)).set("username", detailsSaveVO.getUsername());
+        verify(accountService.update(), times(1)).update();
+        verify(accountDetailsMapper, times(1)).insertOrUpdate(any(AccountDetails.class));
+//        verify(accountDetailsMapper, times(2)).insertOrUpdate(any(AccountDetails.class));
     }
 
     @Test
-    @DisplayName("Save Account Details - Account Exists with Different ID")
+    @DisplayName("保存账户详情 - 存在其他ID的账户")
     void testSaveAccountDetails_AccountExistsWithDifferentID() {
         Account otherAccount = new Account(2, "otheruser", "password", "other@example.com", "USER", "avatar.png", new Date());
         when(accountService.findAccountByNameOrEmail(detailsSaveVO.getUsername())).thenReturn(otherAccount);

@@ -45,6 +45,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(controllers = ForumController.class)
 @Import(TestConfig.class)
+@DisplayName("ForumController - 论坛控制类测试")
 public class ForumControllerTest {
 
     @Autowired

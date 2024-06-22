@@ -8,14 +8,16 @@ import org.mockito.Mockito;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.Profile;
 import org.springframework.data.redis.core.StringRedisTemplate;
 
 @Configuration
+// @Profile("com.example.integration")  // Ensure this configuration is only loaded in the test profile
 public class TestConfig {
 
     @Bean
     @Primary
-    public FlowUtils flowUtils() {
+    public FlowUtils testFlowUtils() {
         FlowUtils mockFlowUtils = Mockito.mock(FlowUtils.class);
         Mockito.when(mockFlowUtils.limitOnceUpgradeCheck(Mockito.anyString(), Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(true);
         Mockito.when(mockFlowUtils.limitOnceCheck(Mockito.anyString(), Mockito.anyInt())).thenReturn(true);
@@ -26,22 +28,25 @@ public class TestConfig {
 
     @Bean
     @Primary
-    public SnowflakeIdGenerator snowflakeIdGenerator() {
+    public SnowflakeIdGenerator testsnowflakeIdGenerator() {
         return Mockito.mock(SnowflakeIdGenerator.class);
     }
 
     @Bean
-    public StringRedisTemplate stringRedisTemplate() {
+    @Primary
+    public StringRedisTemplate teststringRedisTemplate() {
         return Mockito.mock(StringRedisTemplate.class);
     }
 
     @Bean
-    public JwtUtils jwtUtils() {
+    @Primary
+    public JwtUtils testjwtUtils() {
         return Mockito.mock(JwtUtils.class);
     }
 
     @Bean
-    public ImageService imageService() {
+    @Primary
+    public ImageService testimageService() {
         return Mockito.mock(ImageService.class);
     }
 

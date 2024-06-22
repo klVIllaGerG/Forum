@@ -30,6 +30,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -43,6 +44,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith({SpringExtension.class, MockitoExtension.class})
 @WebMvcTest(AccountController.class)
 @Import(TestConfig.class)
+@DisplayName("AccountController - 用户控制类测试")
 public class AccountControllerTest {
 
     @Autowired
@@ -85,7 +87,7 @@ public class AccountControllerTest {
     }
 
     @Test
-    @DisplayName("Get Account Info")
+    @DisplayName("获取用户信息")
     @WithMockUser(username = "john.doe", roles = {"USER"})
     void testGetAccountInfo() throws Exception {
         given(accountService.findAccountById(userId)).willReturn(account);
@@ -97,7 +99,7 @@ public class AccountControllerTest {
     }
 
     @Test
-    @DisplayName("Get Account Details")
+    @DisplayName("获取用户详细信息")
     @WithMockUser(username = "john.doe", roles = {"USER"})
     void testGetAccountDetails() throws Exception {
         given(accountDetailsService.findAccountDetailsById(userId)).willReturn(accountDetails);
@@ -109,7 +111,7 @@ public class AccountControllerTest {
     }
 
     @Test
-    @DisplayName("Save Account Details")
+    @DisplayName("保存用户详细信息")
     @WithMockUser(username = "john.doe", roles = {"USER"})
     void testSaveAccountDetails() throws Exception {
         DetailsSaveVO detailsSaveVO = new DetailsSaveVO();
@@ -131,7 +133,7 @@ public class AccountControllerTest {
     }
 
     @Test
-    @DisplayName("Modify Email")
+    @DisplayName("修改邮箱")
     @WithMockUser(username = "john.doe", roles = {"USER"})
     void testModifyEmail() throws Exception {
         ModifyEmailVO modifyEmailVO = new ModifyEmailVO();
@@ -149,7 +151,7 @@ public class AccountControllerTest {
     }
 
     @Test
-    @DisplayName("Change Password")
+    @DisplayName("修改密码")
     @WithMockUser(username = "john.doe", roles = {"USER"})
     void testChangePassword() throws Exception {
         ChangePasswordVO changePasswordVO = new ChangePasswordVO();
@@ -167,7 +169,7 @@ public class AccountControllerTest {
     }
 
     @Test
-    @DisplayName("Save Privacy Settings")
+    @DisplayName("保存隐私信息")
     @WithMockUser(username = "john.doe", roles = {"USER"})
     void testSavePrivacySettings() throws Exception {
         PrivacySaveVO privacySaveVO = new PrivacySaveVO();
@@ -183,7 +185,7 @@ public class AccountControllerTest {
     }
 
     @Test
-    @DisplayName("Get Privacy Settings")
+    @DisplayName("获取隐私信息")
     @WithMockUser(username = "john.doe", roles = {"USER"})
     void testGetPrivacySettings() throws Exception {
         given(accountPrivacyService.accountPrivacy(userId)).willReturn(accountPrivacy);

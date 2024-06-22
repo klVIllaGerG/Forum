@@ -1,4 +1,4 @@
-package com.example;
+package com.example.unit;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.entity.dto.Notification;
@@ -20,12 +20,13 @@ import java.util.Date;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
-@DisplayName("Notification Service Tests")
+@DisplayName("NotificationServiceImpl - 通知服务测试")
 class NotificationServiceImplTest {
 
     @Mock
@@ -36,24 +37,25 @@ class NotificationServiceImplTest {
 
     @BeforeEach
     void setUp() {
-        // Mocking the NotificationMapper to return expected values
-        when(notificationMapper.insert(any(Notification.class))).thenReturn(1);
-        when(notificationMapper.delete(any(QueryWrapper.class))).thenReturn(1);
-
-        // Make sure we return a valid mapper from the mocked service
-        Mockito.when(notificationService.getBaseMapper()).thenReturn(notificationMapper);
+        notificationService.setNotificationMapper(notificationMapper);
     }
 
     @Test
-    @DisplayName("Add Notification")
+    @DisplayName("添加通知")
     void testAddNotification() {
+        Notification mockNotification = new Notification();
+        mockNotification.setUid(1);
+        mockNotification.setTitle("Maintenance");
+        mockNotification.setContent("System will be down");
+        mockNotification.setType("Alert");
+        mockNotification.setUrl("http://example.com/maintenance");
         notificationService.addNotification(1, "Maintenance", "System will be down", "Alert", "http://example.com/maintenance");
 
-        verify(notificationMapper).insert(any(Notification.class));
+        verify(notificationMapper).insert(eq(mockNotification));
     }
 
     @Test
-    @DisplayName("Find User Notifications")
+    @DisplayName("查找用户通知")
     void testFindUserNotification() {
         List<Notification> mockList = new ArrayList<>();
         Notification notification = new Notification();
@@ -77,14 +79,14 @@ class NotificationServiceImplTest {
     }
 
     @Test
-    @DisplayName("Delete User Notification")
+    @DisplayName("删除用户通知")
     void testDeleteUserNotification() {
         notificationService.deleteUserNotification(1, 1);
         verify(notificationMapper).delete(any(QueryWrapper.class));
     }
 
     @Test
-    @DisplayName("Delete All User Notifications")
+    @DisplayName("删除用户所有通知")
     void testDeleteUserAllNotification() {
         notificationService.deleteUserAllNotification(1);
         verify(notificationMapper).delete(any(QueryWrapper.class));

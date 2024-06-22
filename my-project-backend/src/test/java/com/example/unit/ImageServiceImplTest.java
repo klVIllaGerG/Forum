@@ -1,4 +1,4 @@
-package com.example;
+package com.example.unit;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.example.entity.dto.Account;
@@ -31,6 +31,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
+@DisplayName("ImageServiceImpl - 图像服务测试")
 class ImageServiceImplTest {
 
     @InjectMocks
@@ -58,10 +59,12 @@ class ImageServiceImplTest {
                 "image/jpeg",
                 "test image content".getBytes()
         );
+        // 设置 baseMapper
+        imageService.setImageStoreMapper(imageStoreMapper);
     }
 
     @Test
-    @DisplayName("Fetch Image From Minio - Success")
+    @DisplayName("从 Minio 获取图片 - 成功")
     void testFetchImageFromMinio_Success() {
         OutputStream outputStream = mock(OutputStream.class);
         GetObjectResponse getObjectResponse = new GetObjectResponse(
@@ -78,7 +81,7 @@ class ImageServiceImplTest {
     }
 
     @Test
-    @DisplayName("Upload Image - Success")
+    @DisplayName("上传图片 - 成功")
     void testUploadImage_Success() {
         try {
             when(flowUtils.limitPeriodCounterCheck(anyString(), anyInt(), anyInt())).thenReturn(true);
@@ -95,7 +98,7 @@ class ImageServiceImplTest {
     }
 
     @Test
-    @DisplayName("Upload Image - Limit Exceeded")
+    @DisplayName("上传图片 - 超过限制")
     void testUploadImage_LimitExceeded() {
         try {
             when(flowUtils.limitPeriodCounterCheck(anyString(), anyInt(), anyInt())).thenReturn(false);
@@ -110,7 +113,7 @@ class ImageServiceImplTest {
     }
 
     @Test
-    @DisplayName("Upload Avatar - Success")
+    @DisplayName("上传头像 - 成功")
     void testUploadAvatar_Success() {
         try {
             String imageName = UUID.randomUUID().toString().replace("-", "");
@@ -131,7 +134,7 @@ class ImageServiceImplTest {
     }
 
     @Test
-    @DisplayName("Upload Avatar - Update Failed")
+    @DisplayName("上传头像 - 更新失败")
     void testUploadAvatar_UpdateFailed() {
         try {
             String imageName = UUID.randomUUID().toString().replace("-", "");

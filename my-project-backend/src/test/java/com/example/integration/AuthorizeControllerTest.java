@@ -29,6 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(AuthorizeController.class)
 @Import(TestConfig.class)
+@DisplayName("AuthorizeController - 授权控制类测试")
 public class AuthorizeControllerTest {
 
     @Autowired

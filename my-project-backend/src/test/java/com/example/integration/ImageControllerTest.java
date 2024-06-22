@@ -28,6 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WebMvcTest(ImageController.class)
 @ContextConfiguration(classes = {ImageControllerTest.TestConfig.class, ImageController.class})
+@DisplayName("ImageController - 图像控制类测试")
 public class ImageControllerTest {
 
     @Autowired

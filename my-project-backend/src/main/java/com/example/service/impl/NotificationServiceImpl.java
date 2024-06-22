@@ -38,4 +38,8 @@ public class NotificationServiceImpl extends ServiceImpl<NotificationMapper, Not
         notification.setUrl(url);
         this.save(notification);
     }
+
+    public void setNotificationMapper(NotificationMapper notificationMapper) {
+        this.baseMapper = notificationMapper;
+    }
 }

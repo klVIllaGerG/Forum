@@ -35,6 +35,9 @@ public class ImageServiceImpl extends ServiceImpl<ImageStoreMapper, StoreImage> 
     @Resource
     FlowUtils flowUtils;
 
+    @Resource
+    ImageStoreMapper imageStoreMapper;
+
     private final SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
 
     @Override
@@ -85,9 +88,11 @@ public class ImageServiceImpl extends ServiceImpl<ImageStoreMapper, StoreImage> 
         try {
             client.putObject(args);
             String avatar = mapper.selectById(id).getAvatar();
-            this.deleteOldAvatar(avatar);
+
             if(mapper.update(null, Wrappers.<Account>update()
                     .eq("id", id).set("avatar", imageName)) > 0) {
+                this.deleteOldAvatar(avatar);
+
                 return imageName;
             } else
                 return null;
@@ -104,5 +109,9 @@ public class ImageServiceImpl extends ServiceImpl<ImageStoreMapper, StoreImage> 
                 .object(avatar)
                 .build();
         client.removeObject(remove);
+    }
+
+    public void setImageStoreMapper(ImageStoreMapper imageStoreMapper) {
+        this.baseMapper = imageStoreMapper;
     }
 }

@@ -34,6 +34,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(NotificationController.class)
 @Import(TestConfig.class)
 @AutoConfigureMockMvc(addFilters = false)
+@DisplayName("NotificationController - 提示控制类测试")
 class NotificationControllerTest {
 
     @Autowired

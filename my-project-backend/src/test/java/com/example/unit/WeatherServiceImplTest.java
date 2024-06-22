@@ -1,6 +1,5 @@
-package com.example;
+package com.example.unit;
 
-import com.alibaba.fastjson2.JSONObject;
 import com.example.entity.vo.response.WeatherVO;
 import com.example.service.impl.WeatherServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,11 +17,12 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.zip.GZIPOutputStream;
 
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
-import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
+@DisplayName("WeatherServiceImpl - 天气服务测试")
 public class WeatherServiceImplTest {
 
     @Mock
@@ -40,32 +40,33 @@ public class WeatherServiceImplTest {
     @BeforeEach
     void setUp() {
         // 使用有效的压缩数据进行模拟
-        byte[] compressedData = compressStringToGzip("{\"location\":{\"id\":123,\"name\":\"Test City\"},\"now\":{\"temp\":\"22\",\"weather\":\"Sunny\"},\"hourly\":[{\"hour\":\"1\",\"temp\":\"20\"}]}");
+        byte[] compressedData = compressStringToGzip("{\"location\":{\"id\":123,\"name\":\"测试城市\"},\"now\":{\"temp\":\"22\",\"weather\":\"晴朗\"},\"hourly\":[{\"hour\":\"1\",\"temp\":\"20\"}]}");
         when(restTemplate.getForObject(anyString(), eq(byte[].class))).thenReturn(compressedData);
         when(stringRedisTemplate.opsForValue()).thenReturn(valueOperations);
-        when(valueOperations.get(anyString())).thenReturn(null); // Assume cache miss
+        when(valueOperations.get(anyString())).thenReturn(null); // 假设缓存未命中
     }
 
     @Test
-    @DisplayName("Test Fetch Weather with API Call")
+    @DisplayName("通过 API 调用获取天气信息测试")
     void testFetchWeatherWithApiCall() {
+        // 默认设置
         double longitude = 30.267153;
         double latitude = -97.7430607;
         WeatherVO result = weatherService.fetchWeather(longitude, latitude);
 
         assertNotNull(result);
-        assertEquals("Test City", result.getLocation().getString("name"));
-        verify(restTemplate, times(3)).getForObject(anyString(), eq(byte[].class)); // Called for location, now, and hourly
-        verify(valueOperations).set(anyString(), anyString(), anyLong(), any()); // Ensure cache is set
+        assertEquals("测试城市", result.getLocation().getString("name"));
+        verify(restTemplate, times(3)).getForObject(anyString(), eq(byte[].class)); // 分别调用获取地点、当前天气和每小时天气
+        verify(valueOperations).set(anyString(), anyString(), anyLong(), any()); // 确保设置缓存
     }
 
-    // Helper method to compress a JSON string for the mock RestTemplate
+    // 辅助方法：为模拟的 RestTemplate 压缩 JSON 字符串
     private byte[] compressStringToGzip(String input) {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         try (GZIPOutputStream gzipOutputStream = new GZIPOutputStream(byteArrayOutputStream)) {
             gzipOutputStream.write(input.getBytes());
         } catch (IOException e) {
-            fail("Failed to create compressed data for testing.");
+            fail("创建测试用的压缩数据失败。");
         }
         return byteArrayOutputStream.toByteArray();
     }

@@ -1,4 +1,4 @@
-package com.example;
+package com.example.unit;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.example.entity.dto.Account;
@@ -38,7 +38,7 @@ import static org.mockito.ArgumentMatchers.*;
 
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
-@DisplayName("Account Service Tests")
+@DisplayName("AccountServiceImpl - 账户服务测试")
 class AccountServiceImplTest {
 
     @Autowired
@@ -77,7 +77,7 @@ class AccountServiceImplTest {
     }
 
     @Test
-    @DisplayName("Load User By Username - User Found")
+    @DisplayName("通过用户名加载用户 - 用户存在")
     void testLoadUserByUsername_UserFound() {
         String username = "testuser";
         Account mockAccount = new Account(1, username, "password", "test@example.com", "USER", null, new Date());
@@ -93,7 +93,7 @@ class AccountServiceImplTest {
     }
 
     @Test
-    @DisplayName("Load User By Username - User Not Found")
+    @DisplayName("通过用户名加载用户 - 用户不存在")
     void testLoadUserByUsername_UserNotFound() {
         String username = "nonexistentuser";
 
@@ -105,7 +105,7 @@ class AccountServiceImplTest {
     }
 
     @Test
-    @DisplayName("Register Email Account - Success")
+    @DisplayName("注册电子邮件账户 - 成功")
     void testRegisterEmailAccount_Success() {
         EmailRegisterVO info = new EmailRegisterVO();
         info.setEmail("test@example.com");
@@ -126,7 +126,7 @@ class AccountServiceImplTest {
     }
 
     @Test
-    @DisplayName("Register Email Account - Email Already Registered")
+    @DisplayName("注册电子邮件账户 - 邮箱已注册")
     void testRegisterEmailAccount_EmailAlreadyRegistered() {
         EmailRegisterVO info = new EmailRegisterVO();
         info.setEmail("test@example.com");
@@ -143,7 +143,7 @@ class AccountServiceImplTest {
     }
 
     @Test
-    @DisplayName("Register Email Account - Username Already Taken")
+    @DisplayName("注册电子邮件账户 - 用户名已被占用")
     void testRegisterEmailAccount_UsernameAlreadyTaken() {
         EmailRegisterVO info = new EmailRegisterVO();
         info.setEmail("test@example.com");
@@ -161,7 +161,7 @@ class AccountServiceImplTest {
     }
 
     @Test
-    @DisplayName("Register Email Account - Invalid Code")
+    @DisplayName("注册电子邮件账户 - 验证码无效")
     void testRegisterEmailAccount_InvalidCode() {
         EmailRegisterVO info = new EmailRegisterVO();
         info.setEmail("test@example.com");
@@ -177,7 +177,7 @@ class AccountServiceImplTest {
     }
 
     @Test
-    @DisplayName("Register Email Account - Missing Code")
+    @DisplayName("注册电子邮件账户 - 缺少验证码")
     void testRegisterEmailAccount_MissingCode() {
         EmailRegisterVO info = new EmailRegisterVO();
         info.setEmail("test@example.com");
@@ -193,7 +193,7 @@ class AccountServiceImplTest {
     }
 
     @Test
-    @DisplayName("Generate Register Email Verify Code - Success")
+    @DisplayName("生成注册电子邮件验证码 - 成功")
     void testRegisterEmailVerifyCode_Success() {
         String type = "register";
         String email = "test@example.com";
@@ -209,7 +209,7 @@ class AccountServiceImplTest {
     }
 
     @Test
-    @DisplayName("Generate Register Email Verify Code - Request Limit")
+    @DisplayName("生成注册电子邮件验证码 - 请求过于频繁")
     void testRegisterEmailVerifyCode_RequestLimit() {
         String type = "register";
         String email = "test@example.com";

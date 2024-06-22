@@ -78,6 +78,7 @@ public class TopicServiceImpl extends ServiceImpl<TopicMapper, Topic> implements
 
     @Override
     public String createTopic(int uid, TopicCreateVO vo) {
+        initTypes(); // 调用初始化方法
         if(!textLimitCheck(vo.getContent(), 20000))
             return "文章内容太多，发文失败！";
         if(!types.contains(vo.getType()))
@@ -100,6 +101,7 @@ public class TopicServiceImpl extends ServiceImpl<TopicMapper, Topic> implements
 
     @Override
     public String updateTopic(int uid, TopicUpdateVO vo) {
+        initTypes(); // 调用初始化方法
         if(!textLimitCheck(vo.getContent(), 20000))
             return "文章内容太多，发文失败！";
         if(!types.contains(vo.getType()))
@@ -329,5 +331,9 @@ public class TopicServiceImpl extends ServiceImpl<TopicMapper, Topic> implements
             if(length > max) return false;
         }
         return true;
+    }
+
+    public void setTopicMapper(TopicMapper topicMapper) {
+        this.baseMapper = topicMapper;
     }
 }
