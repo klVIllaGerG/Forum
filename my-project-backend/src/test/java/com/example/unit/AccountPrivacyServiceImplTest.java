@@ -1,6 +1,7 @@
 package com.example.unit;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.example.assets.ZTestReportExtension;
 import com.example.entity.dto.AccountPrivacy;
 import com.example.entity.vo.request.PrivacySaveVO;
 import com.example.mapper.AccountPrivacyMapper;
@@ -21,7 +22,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
-@ExtendWith(MockitoExtension.class)
+@ExtendWith({MockitoExtension.class, ZTestReportExtension.class})
 @DisplayName("AccountPrivacyServiceImpl - 账户隐私服务测试")
 class AccountPrivacyServiceImplTest {
 

@@ -1,5 +1,6 @@
 package com.example.unit;
 
+import com.example.assets.ZTestReportExtension;
 import com.example.entity.dto.Account;
 import com.example.entity.dto.AccountDetails;
 import com.example.entity.vo.request.DetailsSaveVO;
@@ -12,7 +13,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -21,11 +21,13 @@ import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
+import com.example.assets.ZTestReport;
+import org.testng.annotations.Listeners;
+import org.testng.annotations.Parameters;
 
+@ExtendWith({MockitoExtension.class, ZTestReportExtension.class})
 @SpringBootTest
-@ExtendWith(MockitoExtension.class)
 @DisplayName("AccountDetailsServiceImpl - 账户详情服务测试")
 class AccountDetailsServiceImplTest {
 

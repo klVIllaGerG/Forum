@@ -1,6 +1,7 @@
 package com.example.unit;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.example.assets.ZTestReportExtension;
 import com.example.entity.dto.Account;
 import com.example.entity.dto.StoreImage;
 import com.example.mapper.AccountMapper;
@@ -30,7 +31,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-@ExtendWith(MockitoExtension.class)
+@ExtendWith({MockitoExtension.class, ZTestReportExtension.class})
 @DisplayName("ImageServiceImpl - 图像服务测试")
 class ImageServiceImplTest {
 

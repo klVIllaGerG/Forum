@@ -1,5 +1,6 @@
 package com.example.integration;
 
+import com.example.assets.ZTestReportExtension;
 import com.example.controller.AccountController;
 import com.example.entity.RestBean;
 import com.example.entity.dto.Account;
@@ -41,7 +42,7 @@ import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@ExtendWith({SpringExtension.class, MockitoExtension.class})
+@ExtendWith({SpringExtension.class, MockitoExtension.class,ZTestReportExtension.class})
 @WebMvcTest(AccountController.class)
 @Import(TestConfig.class)
 @DisplayName("AccountController - 用户控制类测试")

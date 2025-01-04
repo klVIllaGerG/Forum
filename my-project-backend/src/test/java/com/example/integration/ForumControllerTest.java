@@ -1,5 +1,6 @@
 package com.example.integration;
 
+import com.example.assets.ZTestReportExtension;
 import com.example.controller.ForumController;
 import com.example.entity.vo.request.AddCommentVO;
 import com.example.entity.vo.request.TopicCreateVO;
@@ -42,7 +43,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@ExtendWith(SpringExtension.class)
+@ExtendWith({SpringExtension.class, ZTestReportExtension.class})
 @WebMvcTest(controllers = ForumController.class)
 @Import(TestConfig.class)
 @DisplayName("ForumController - 论坛控制类测试")

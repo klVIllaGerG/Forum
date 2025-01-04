@@ -1,6 +1,7 @@
 package com.example.unit;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.example.assets.ZTestReportExtension;
 import com.example.entity.dto.Notification;
 import com.example.entity.vo.response.NotificationVO;
 import com.example.mapper.NotificationMapper;
@@ -25,7 +26,7 @@ import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-@ExtendWith(MockitoExtension.class)
+@ExtendWith({MockitoExtension.class, ZTestReportExtension.class})
 @DisplayName("NotificationServiceImpl - 通知服务测试")
 class NotificationServiceImplTest {
 

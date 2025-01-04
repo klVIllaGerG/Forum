@@ -1,5 +1,6 @@
 package com.example.integration;
 
+import com.example.assets.ZTestReportExtension;
 import com.example.controller.NotificationController;
 import com.example.entity.vo.response.NotificationVO;
 import com.example.service.NotificationService;
@@ -31,6 +32,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(SpringExtension.class)
+@ExtendWith({ZTestReportExtension.class})
 @WebMvcTest(NotificationController.class)
 @Import(TestConfig.class)
 @AutoConfigureMockMvc(addFilters = false)

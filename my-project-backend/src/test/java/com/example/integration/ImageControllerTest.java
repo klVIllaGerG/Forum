@@ -1,10 +1,12 @@
 package com.example.integration;
 
+import com.example.assets.ZTestReportExtension;
 import com.example.controller.ImageController;
 import com.example.service.ImageService;
 import com.example.utils.Const;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -16,6 +18,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.mock.web.MockMultipartFile;
 
@@ -27,6 +30,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(ImageController.class)
+@ExtendWith({ZTestReportExtension.class})
 @ContextConfiguration(classes = {ImageControllerTest.TestConfig.class, ImageController.class})
 @DisplayName("ImageController - 图像控制类测试")
 public class ImageControllerTest {

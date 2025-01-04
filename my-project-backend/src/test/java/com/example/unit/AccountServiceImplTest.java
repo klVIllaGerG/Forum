@@ -1,6 +1,7 @@
 package com.example.unit;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.example.assets.ZTestReportExtension;
 import com.example.entity.dto.Account;
 import com.example.entity.dto.AccountDetails;
 import com.example.entity.dto.AccountPrivacy;
@@ -37,7 +38,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
 
 @SpringBootTest
-@ExtendWith(MockitoExtension.class)
+@ExtendWith({MockitoExtension.class, ZTestReportExtension.class})
 @DisplayName("AccountServiceImpl - 账户服务测试")
 class AccountServiceImplTest {
 

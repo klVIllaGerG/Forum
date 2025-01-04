@@ -1,5 +1,6 @@
 package com.example.unit;
 
+import com.example.assets.ZTestReportExtension;
 import com.example.entity.vo.response.WeatherVO;
 import com.example.service.impl.WeatherServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
@@ -21,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
-@ExtendWith(MockitoExtension.class)
+@ExtendWith({MockitoExtension.class, ZTestReportExtension.class})
 @DisplayName("WeatherServiceImpl - 天气服务测试")
 public class WeatherServiceImplTest {
 
